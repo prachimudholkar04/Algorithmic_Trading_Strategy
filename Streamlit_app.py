@@ -38,6 +38,15 @@ elif strategy_option == "MACD":
 # -----------------------------
 symbol = 'AAPL'
 data = yf.download(symbol, start='2020-01-01', end='2025-12-31', auto_adjust=False)
+try:
+    data = yf.download(ticker, start=start_date, end=end_date, auto_adjust=True, progress=False)
+    if data.empty:
+        st.error(f"❌ Failed to retrieve data for '{ticker}'. It may be delisted or unavailable.")
+        st.stop()
+except Exception as e:
+    st.error(f"❌ Error downloading data: {e}")
+    st.stop()
+
 data.columns = [col if isinstance(col, str) else col[0] for col in data.columns]
 data = data[['Open', 'High', 'Low', 'Close', 'Volume']]
 data.to_csv('data.csv')

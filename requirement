@@ -1,6 +1,6 @@
-streamlit
-yfinance
-backtrader
-pandas
-numpy
-plotly
+streamlit==1.33.0
+yfinance==0.2.37
+backtrader==1.9.78.123
+pandas==2.2.1
+numpy==1.26.4
+plotly==5.20.0

@@ -46,6 +46,12 @@ data = yf.download(symbol, start='2020-01-01', end='2025-12-31', auto_adjust=Fal
 data.columns = [col if isinstance(col, str) else col[0] for col in data.columns]
 data = data[['Open', 'High', 'Low', 'Close', 'Volume']]
 data.to_csv('data.csv')
+
+min_period_required = max(fast, slow) if strategy_option == "SMA Crossover" else 30
+if len(data) < min_period_required:
+    st.error(f"Not enough data to calculate indicators. Please select a wider date range.")
+    st.stop()
+
 # -----------------------------
 # Strategy Execution (No trades plotted for now)
 # -----------------------------
